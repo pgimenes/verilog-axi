@@ -174,7 +174,7 @@ initial begin
     //     end
     // end
 
-    $readmemh("memory.mem", mem);
+    $readmemh("$FYP_DIR/hw/sim/layer_config/memory.mem", mem);
 end
 
 always @* begin
