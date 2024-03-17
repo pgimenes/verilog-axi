@@ -42,7 +42,9 @@ module axi_ram #
     // Width of ID signal
     parameter ID_WIDTH = 8,
     // Extra pipeline register on output
-    parameter PIPELINE_OUTPUT = 0
+    parameter PIPELINE_OUTPUT = 0,
+
+    parameter DATA_FILE = "$WORKAREA/hw/sim/layer_config/memory.mem"
 )
 (
     input  wire                   clk,
@@ -144,7 +146,7 @@ reg s_axi_rlast_pipe_reg = 1'b0;
 reg s_axi_rvalid_pipe_reg = 1'b0;
 
 // (* RAM_STYLE="BLOCK" *)
-reg [DATA_WIDTH-1:0] mem[(2**VALID_ADDR_WIDTH)-1:0];
+reg [DATA_WIDTH-1:0] mem [(2**VALID_ADDR_WIDTH)-1:0];
 
 wire [VALID_ADDR_WIDTH-1:0] s_axi_awaddr_valid = s_axi_awaddr >> (ADDR_WIDTH - VALID_ADDR_WIDTH);
 wire [VALID_ADDR_WIDTH-1:0] s_axi_araddr_valid = s_axi_araddr >> (ADDR_WIDTH - VALID_ADDR_WIDTH);
@@ -174,7 +176,7 @@ initial begin
     //     end
     // end
 
-    $readmemh("$FYP_DIR/hw/sim/layer_config/memory.mem", mem);
+    $readmemh(DATA_FILE, mem);
 end
 
 always @* begin
